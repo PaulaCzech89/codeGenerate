@@ -1,0 +1,45 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class CodeGenerator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Podaj liczbę kodów do wygenerowania:");
+
+        int numCodes = scanner.nextInt();
+
+        if(numCodes<1){
+            System.out.println("Podaj prawidłową liczbę");
+        } else{
+            generateCodes(numCodes);
+        }
+
+    }
+public static void generateCodes(int numCodes){
+        Random random = new Random();
+        String characters = "ABCDEFGHIJKMNOPRQSTUWXYZabcdefghijklmnoprqstuwxyz";
+        int minCodeLength = 5;
+        int maxCodeLength = 10;
+    System.out.println("Wygenerowane kody:" );
+    for(int i = 0; i< numCodes; i++){
+        int codeLength = random.nextInt(maxCodeLength - maxCodeLength + 1) + minCodeLength;
+        StringBuilder code = new StringBuilder();
+        for(int j = 0; j<codeLength; j++){
+            int randomIndex = random.nextInt(characters.length());
+            char randomChar = characters.charAt(randomIndex);
+            code.append(randomChar);
+        }
+        boolean isWinner = random.nextBoolean();
+        if(isWinner){
+            code.append(" wygrana!");
+        }
+
+        boolean isUsed = random.nextBoolean();
+        if(isUsed){
+            code.append(" Kod już użyty.");
+        }
+        System.out.println(code.toString());
+    }
+}
+
+    }
