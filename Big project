@@ -1,0 +1,95 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+public class CuponCodeGenerator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<String> cuponCodes = new ArrayList<>();
+
+        while (true) {
+            System.out.println("Panel administracyjny:");
+            System.out.println("1. Wygeneruj kupon");
+            System.out.println("2. Dodaj kupon");
+            System.out.println("3. Edytuj kupon");
+            System.out.println("4. Usuń kupon");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Podaj liczbę kodów do wygenerowania:");
+                    int numCodes = scanner.nextInt();
+                    generateCodes(numCodes);
+                    break;
+
+                case 2:
+                    System.out.println("Wpisz kupon:");
+                    String newCode = scanner.nextLine();
+                    addCupon(newCode);
+                    break;
+
+                case 3:
+                    System.out.println("Podaj kupon do edytowania:");
+                    int index = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Podaj nowy kupon:");
+                    String updateCode = scanner.nextLine();
+                    editCupon(index, updateCode);
+                    break;
+
+                case 4:
+                    System.out.println("Podaj kod do usunięcia:");
+                    int deleteIndex = scanner.nextInt();
+                    deleteCupon(deleteIndex);
+                    break;
+
+                default:
+                    System.out.println("Nieprawidłowa komenda.");
+                    break;
+            }
+        }
+
+        public static void generateCodes ( int numCodes){
+            Random random = new Random();
+            String characters = "ABCDEFGHIJKMNOPRQSTUWXYZabcdefghijklmnoprqstuwxyz12334567890";
+            int minCodeLength = 5;
+            int maxCodeLength = 10;
+            System.out.println("Wygenerowane kody:");
+            for (int i = 0; i < numCodes; i++) {
+                int codeLength = random.nextInt(maxCodeLength - minCodeLength + 1) + minCodeLength;
+                StringBuilder code = new StringBuilder();
+
+                for (int j = 0; j < codeLength; j++) {
+                    int randomIndex = random.nextInt(characters.length());
+                    char randomChar = characters.charAt(randomIndex);
+                    code.append(randomChar);
+                }
+                boolean isWinner = random.nextBoolean();
+
+                code.append(isWinner ? " wygrany!" : " przegrana!");
+
+
+                boolean isUsed = random.nextBoolean();
+
+                code.append(isUsed ? " Kod już użyty." : " Kod nie użyty.");
+
+                System.out.println(code.toString());
+            }
+        }
+        public static void addCupon (List < String > cuponCodes, String newCode){
+            cuponCodes.add(newCode);
+            System.out.println("Kupon dodany");
+        }
+
+        public static void deleteCoupon (List < String > couponCodes,int index){
+            if (index >= 0 && index < couponCodes.size()) {
+                couponCodes.remove(index);
+                System.out.println("Kupon usunięty.");
+            } else {
+                System.out.println("Nieprawidłowy indeks kuponu.");
+            }
+        }
+    }
+}
